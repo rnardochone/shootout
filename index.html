@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shootout at Sunset</title>
+    <link rel="stylesheet" href="/dist/styles/styles.css">
+    <script src="/dist/js/scripts.js" defer></script>
+
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+
+
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 924180398721673,
+                cookie: true,
+                xfbml: true,
+                oauth: true,
+                version: 'v15.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</head>
+
+<body>
+    <div class="logoContainer">
+        <img src="/dist/img/Logo.svg" alt="slotslv logo">
+    </div>
+
+    <div class="background">
+        <img src="/dist/img/cloud.png" alt="" class="cloud">
+        <img src="/dist/img/saloon.png" alt="wild west saloon" class="saloon">
+    </div>
+
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" width=960 height=600></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-warning"></div>
+    </div>
+
+    <section id="sectionHome" class="currentSection">
+        <div class="content">
+            <img src="/dist/img/sheriff.png" alt="sheriff girl" class="sheriff">
+            <div class="dialogBox">
+
+                <div class="dialog">Those lawless ladies are out of control, I need your help!</div>
+                <button class="goToSelect">NEXT</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="sectionSelect">
+        <div class="content">
+            <h1>SELECT YOUR CHARACTER</h1>
+            <div class="charactersContainer">
+                <img src="/dist/img/male.png" alt="cowboy" class="maleCharacter selected">
+                <img src="/dist/img/female.png" alt="cowgirl" class="femaleCharacter">
+            </div>
+            <div class="dialogBox">
+                <div class="dialog">Select your character</div>
+                <button class="goToInstructions">NEXT</button>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="sectionInstructions">
+        <div class="content">
+            <div class="imagesContainer">
+                <img src="/dist/img/target.png" alt="a target with a wanted poster of a girl">
+                <img src="/dist/img/badge.png" alt="a sheriff badge">
+            </div>
+            <div class="dialogBox">
+                <div class="dialog">Score points by shooting at the targets before they shoot back at you. And catch the
+                    badges to regain
+                    energy and earn extra points!</div>
+                <button class="goToLeaderboard">LEADERBOARD</button>
+                <button class="playBtn">PLAY</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="sectionRegister">
+        <div class="content">
+            <div class="upperWrapper">
+                <div class="currentCharacterContainer male">
+                    <img src="/dist/img/male.png" alt="cowboy" class="maleCharacter selected">
+                    <img src="/dist/img/female.png" alt="cowboy" class="femaleCharacter">
+                </div>
+
+                <div class="registerForm">
+                    <span><input type="text" name="nickname" id="nicknameField" class="loginButto"
+                            placeholder="Nickname..."></span>
+                    <span><input type="text" name="email" id="emailField" class="loginButto" disabled
+                            placeholder="Email..."></span>
+                    <div class="facebookBtn loginButton" scope="email" id="facebook-button" onclick="fb_login();">
+                        <img src="/dist/img/facebookNegative.png" alt="facebook logo" class="loginLogoPos">
+                        <img src="/dist/img/facebookPositive.png" alt="facebook logo" class="loginLogoNeg">
+                        <p>Continue with Facebook</p>
+                    </div>
+
+                    <div class="googleBtn loginButton">
+                        <img src="/dist/img/googleNegative.png" alt="google logo" class="loginLogoPos">
+                        <img src="/dist/img/googlePositive.png" alt="google logo" class="loginLogoNeg">
+                        <p>Continue with Google</p>
+                        <div class="wrapper">
+                            <div id="g_id_onload"
+                                data-client_id="498965243094-r3rr34lqjllrkk5tqsasro77jcnetfn2.apps.googleusercontent.com"
+                                data-context="signin" data-ux_mode="popup" data-callback="googleLoginHandler"
+                                data-itp_support="true">
+                            </div>
+                            <div class="g_id_signin" data-shape="rectangle" data-width="300" data-theme="outline"
+                                data-text="continue_with" data-size="large">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dialogBox">
+                <div class="dialog">Good job, your score was <span id="endScore">000</span>! Register now to save your
+                    score and play again.</div>
+
+                <button class="submitBtn disabledBtn">SUBMIT</button>
+                <button class="goToLeaderboard">LEADERBOARD</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="sectionLeaderboard">
+        <div class="content">
+            <h1>LEADERBOARD</h1>
+            <div class="tableContainer">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dialogBox">
+                <button class="playBtn">PLAY AGAIN</button>
+                <button class="goToHome">HOME</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
